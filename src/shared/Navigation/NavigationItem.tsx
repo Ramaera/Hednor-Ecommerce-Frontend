@@ -3,6 +3,7 @@
 import { Popover, Transition } from "@/app/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import CardCategory3 from "@/components/CardCategories/CardCategory3";
+import NavPoster from "./NavPoster";
 import React, { FC, Fragment, useState } from "react";
 import { Route } from "@/routers/types";
 import Link from "next/link";
@@ -15,6 +16,7 @@ export interface NavItemType {
   children?: NavItemType[];
   type?: "dropdown" | "megaMenu" | "none";
   isNew?: boolean;
+  poster?: [];
 }
 
 export interface NavigationItemProps {
@@ -62,9 +64,12 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                     </div>
                   ))}
                 </div>
-                <div className="w-[40%] xl:w-[35%]">
-                  <CardCategory3 />
-                </div>
+
+                {menu?.poster?.map((item, index) => (
+                  <div key={index} className="w-[40%] xl:w-[35%]">
+                    <NavPoster item={item} />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

@@ -118,7 +118,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
         />
 
         {/* BG */}
-        <div className="absolute inset-0 bg-[#E3FFE6]">
+        <div className="absolute inset-0 bg-[#effffddd]">
           <Image
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

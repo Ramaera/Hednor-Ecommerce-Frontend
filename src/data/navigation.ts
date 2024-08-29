@@ -1,3 +1,4 @@
+import { CATS_DISCOVER } from "@/components/CardCategories/data";
 import { NavItemType } from "@/shared/Navigation/NavigationItem";
 import ncNanoId from "@/utils/ncNanoId";
 
@@ -52,6 +53,132 @@ export const MEGAMENU_TEMPLATES: NavItemType[] = [
       { id: ncNanoId(), href: "/login", name: "Login" },
       { id: ncNanoId(), href: "/signup", name: "Signup" },
       { id: ncNanoId(), href: "/forgot-pass", name: "Forgot Password" },
+    ],
+  },
+];
+
+export const MEGAMENU_MENS: NavItemType[] = [
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Topwear",
+    children: [
+      { id: ncNanoId(), href: "/", name: "T-Shirts" },
+      { id: ncNanoId(), href: "/", name: "Casual Shirts" },
+      { id: ncNanoId(), href: "/", name: "Sweatshirts" },
+      { id: ncNanoId(), href: "/", name: "Sweaters" },
+      { id: ncNanoId(), href: "/", name: "Jackets" },
+      { id: ncNanoId(), href: "/", name: "Blazers & Coats" },
+      { id: ncNanoId(), href: "/", name: "Suits" },
+      { id: ncNanoId(), href: "/", name: "Rain Jacketsn" },
+      { id: ncNanoId(), href: "/", name: "Coming Soon" },
+    ],
+  },
+
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Bottomwear",
+    children: [
+      { id: ncNanoId(), href: "/", name: "Jeans" },
+      { id: ncNanoId(), href: "/", name: "Casual Trousers" },
+      { id: ncNanoId(), href: "/", name: "Formal Trousers" },
+      { id: ncNanoId(), href: "/", name: "Shorts" },
+      { id: ncNanoId(), href: "/", name: "Track Pants & Joggers" },
+      { id: ncNanoId(), href: "/", name: "Briefs & Trunks" },
+      { id: ncNanoId(), href: "/", name: "Boxers" },
+    ],
+  },
+
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Footwear",
+    children: [
+      { id: ncNanoId(), href: "/", name: "Casual Shoes" },
+      { id: ncNanoId(), href: "/", name: "Sports Shoes" },
+      { id: ncNanoId(), href: "/cart", name: "Formal Shoes" },
+      { id: ncNanoId(), href: "/account", name: "Sneakers" },
+      { id: ncNanoId(), href: "/account-order", name: "Sandals & Floaters" },
+      { id: ncNanoId(), href: "/subscription", name: "Flip Flops" },
+    ],
+  },
+
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Fashion Accessories",
+    children: [
+      { id: ncNanoId(), href: "/", name: "Wallets" },
+      { id: ncNanoId(), href: "/", name: "Perfumes & Body Mists" },
+      { id: ncNanoId(), href: "/", name: "Trimmers" },
+      { id: ncNanoId(), href: "/", name: "Deodorants" },
+      { id: ncNanoId(), href: "/", name: "Caps & Hats" },
+      { id: ncNanoId(), href: "/", name: "Rings & Wristwear" },
+      { id: ncNanoId(), href: "/", name: "Accessory Gift Sets" },
+    ],
+  },
+];
+
+export const MEGAMENU_WOMENS: NavItemType[] = [
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Topwear",
+    children: [
+      { id: ncNanoId(), href: "/", name: "Kurtas & Suits" },
+      { id: ncNanoId(), href: "/", name: "Kurtis, Tunics & Tops" },
+      { id: ncNanoId(), href: "/", name: "Sarees" },
+      { id: ncNanoId(), href: "/", name: "Ethnic Wear" },
+      { id: ncNanoId(), href: "/", name: "Leggings, Salwars & Churidars" },
+      { id: ncNanoId(), href: "/", name: "Skirts & Palazzos" },
+      { id: ncNanoId(), href: "/", name: "Suits" },
+      { id: ncNanoId(), href: "/", name: "Dress Materials" },
+      { id: ncNanoId(), href: "/", name: "Dupattas & Shawls" },
+    ],
+  },
+
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Bottomwear",
+    children: [
+      { id: ncNanoId(), href: "/", name: "Jeans" },
+      { id: ncNanoId(), href: "/", name: "Casual Trousers" },
+      { id: ncNanoId(), href: "/", name: "Formal Trousers" },
+      { id: ncNanoId(), href: "/", name: "Shorts" },
+      { id: ncNanoId(), href: "/", name: "Track Pants & Joggers" },
+      { id: ncNanoId(), href: "/", name: "Briefs & Trunks" },
+      { id: ncNanoId(), href: "/", name: "Boxers" },
+    ],
+  },
+
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Footwear",
+    children: [
+      { id: ncNanoId(), href: "/", name: "Casual Shoes" },
+      { id: ncNanoId(), href: "/", name: "Sports Shoes" },
+      { id: ncNanoId(), href: "/cart", name: "Formal Shoes" },
+      { id: ncNanoId(), href: "/account", name: "Sneakers" },
+      { id: ncNanoId(), href: "/account-order", name: "Sandals & Floaters" },
+      { id: ncNanoId(), href: "/subscription", name: "Flip Flops" },
+    ],
+  },
+
+  {
+    id: ncNanoId(),
+    href: "/#",
+    name: "Fashion Accessories",
+    children: [
+      { id: ncNanoId(), href: "/", name: "Fashion Jewellery" },
+      { id: ncNanoId(), href: "/", name: "Perfumes & Body Mists" },
+      { id: ncNanoId(), href: "/", name: "Fine Jewellery" },
+      { id: ncNanoId(), href: "/", name: "Deodorants" },
+      { id: ncNanoId(), href: "/", name: "Caps & Hats" },
+      { id: ncNanoId(), href: "/", name: "Rings & Wristwear" },
+      { id: ncNanoId(), href: "/", name: "Earrings" },
     ],
   },
 ];
@@ -177,16 +304,40 @@ const OTHER_PAGE_CHILD: NavItemType[] = [
   },
 ];
 
+export const POSTER_MENS: any = [
+  {
+    featuredImage: CATS_DISCOVER[0].featuredImage,
+    name: CATS_DISCOVER[1].name,
+    desc: CATS_DISCOVER[1].desc,
+    color: CATS_DISCOVER[1].color,
+  },
+];
+
+export const POSTER_WOMENS: any = [
+  {
+    featuredImage: CATS_DISCOVER[3].featuredImage,
+    name: CATS_DISCOVER[3].name,
+    desc: CATS_DISCOVER[3].desc,
+    color: CATS_DISCOVER[3].color,
+  },
+];
+
 export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),
     href: "/collection",
     name: "Men",
+    type: "megaMenu",
+    children: MEGAMENU_MENS,
+    poster: POSTER_MENS,
   },
   {
     id: ncNanoId(),
     href: "/collection-2",
     name: "Women",
+    type: "megaMenu",
+    children: MEGAMENU_WOMENS,
+    poster: POSTER_WOMENS,
   },
   {
     id: ncNanoId(),

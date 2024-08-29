@@ -79,7 +79,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         <div className="flex-[2] hidden lg:flex justify-center mx-4">
           {renderSearchForm()}
         </div>
-        <div className=" flex items-center justify-end text-slate-700 dark:text-slate-10 gap-x-4 ml-20">
+        <div className="hidden sm:flex items-center justify-end text-slate-700 dark:text-slate-10 gap-x-4 ml-20">
           <div>
             <h1 className="font-medium">Become a Seller</h1>
           </div>
@@ -95,7 +95,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
             <h1 className="font-semibold">Refer</h1>
           </div>
         </div>
-        <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
+        <div className="flex-1 flex gap-x-1 items-baseline  justify-end text-slate-700 dark:text-slate-100">
           <AvatarDropdown />
           <CartDropdown />
         </div>
@@ -106,7 +106,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   return (
     <div className="nc-MainNav2Logged relative z-10 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-slate-700">
       <div className="container ">{renderContent()}</div>
-      <div>
+      <div className="hidden sm:flex">
         <Navigation />
       </div>
     </div>
