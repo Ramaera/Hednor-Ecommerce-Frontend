@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import LikeButton from "@/components/LikeButton";
 import { StarIcon } from "@heroicons/react/24/solid";
@@ -39,6 +39,26 @@ const ProductDetailPage = () => {
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
     useState(false);
 
+  const containerRef = useRef(null);
+  const imageRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (containerRef.current && imageRef.current) {
+      containerRef.current.scrollBy({
+        left: -imageRef.current.clientWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (containerRef.current && imageRef.current) {
+      containerRef.current.scrollBy({
+        left: imageRef.current.clientWidth,
+        behavior: "smooth",
+      });
+    }
+  };
   //
   const notifyAddTocart = () => {
     toast.custom(
@@ -79,8 +99,7 @@ const ProductDetailPage = () => {
                 variantActive === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
-              }`}
-            >
+              }`}>
               <div
                 className="absolute inset-0.5 rounded-full overflow-hidden z-0 object-cover bg-cover"
                 style={{
@@ -93,8 +112,7 @@ const ProductDetailPage = () => {
                       ? variant.thumbnail
                       : ""
                   })`,
-                }}
-              ></div>
+                }}></div>
             </div>
           ))}
         </div>
@@ -119,8 +137,7 @@ const ProductDetailPage = () => {
             target="_blank"
             rel="noopener noreferrer"
             href="##"
-            className="text-primary-6000 hover:text-primary-500"
-          >
+            className="text-primary-6000 hover:text-primary-500">
             See sizing chart
           </a>
         </div>
@@ -146,8 +163,7 @@ const ProductDetailPage = () => {
                     return;
                   }
                   setSizeSelected(size);
-                }}
-              >
+                }}>
                 {size}
               </div>
             );
@@ -219,8 +235,7 @@ const ProductDetailPage = () => {
             <div className="flex items-center">
               <a
                 href="#reviews"
-                className="flex items-center text-sm font-medium"
-              >
+                className="flex items-center text-sm font-medium">
                 <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
                 <div className="ml-1.5 flex">
                   <span>4.9</span>
@@ -253,8 +268,7 @@ const ProductDetailPage = () => {
           </div>
           <ButtonPrimary
             className="flex-1 flex-shrink-0"
-            onClick={notifyAddTocart}
-          >
+            onClick={notifyAddTocart}>
             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
             <span className="ml-3">Add to cart</span>
           </ButtonPrimary>
@@ -349,8 +363,7 @@ const ProductDetailPage = () => {
 
           <ButtonSecondary
             onClick={() => setIsOpenModalViewAllReviews(true)}
-            className="mt-10 border border-slate-300 dark:border-slate-700 "
-          >
+            className="mt-10 border border-slate-300 dark:border-slate-700 ">
             Show me all 142 reviews
           </ButtonSecondary>
         </div>
@@ -380,23 +393,66 @@ const ProductDetailPage = () => {
               {/* META FAVORITES */}
               <LikeButton className="absolute right-3 top-3 " />
             </div>
-            <div className="grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
-              {[LIST_IMAGES_DEMO[1], LIST_IMAGES_DEMO[2]].map((item, index) => {
-                return (
+            {/* <div className="flex overflow-x-auto gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
+              {[
+                LIST_IMAGES_DEMO[1],
+                LIST_IMAGES_DEMO[2],
+                LIST_IMAGES_DEMO[1],
+                LIST_IMAGES_DEMO[2],
+                LIST_IMAGES_DEMO[1],
+                LIST_IMAGES_DEMO[2],
+                LIST_IMAGES_DEMO[1],
+                LIST_IMAGES_DEMO[2],
+              ].map((item, index) => (
+                <div key={index} className="flex-shrink-0 w-40 h-40 relative">
+                  <Image
+                    sizes="(max-width: 48px) 100vw, 30vw"
+                    fill
+                    src={item}
+                    className="w-full h-full rounded-2xl object-cover"
+                    alt={`product detail ${index}`}
+                  />
+                </div>
+              ))}
+            </div> */}
+            <div className="relative">
+              <button
+                onClick={scrollLeft}
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
+                &lt;
+              </button>
+              <button
+                onClick={scrollRight}
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
+                &gt;
+              </button>
+              <div
+                ref={containerRef}
+                className="flex overflow-x-auto whitespace-nowrap gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8 hide-scrollbar">
+                {[
+                  LIST_IMAGES_DEMO[1],
+                  LIST_IMAGES_DEMO[2],
+                  LIST_IMAGES_DEMO[1],
+                  LIST_IMAGES_DEMO[2],
+                  LIST_IMAGES_DEMO[1],
+                  LIST_IMAGES_DEMO[2],
+                  LIST_IMAGES_DEMO[1],
+                  LIST_IMAGES_DEMO[2],
+                ].map((item, index) => (
                   <div
                     key={index}
-                    className="aspect-w-11 xl:aspect-w-10 2xl:aspect-w-11 aspect-h-16 relative"
-                  >
+                    ref={index === 0 ? imageRef : null}
+                    className="flex-shrink-0 w-24 h-24 relative">
                     <Image
-                      sizes="(max-width: 640px) 100vw, 33vw"
+                      sizes="(max-width: 48px) 100vw, 30vw"
                       fill
                       src={item}
-                      className="w-full rounded-2xl object-cover"
-                      alt="product detail 1"
+                      className="w-full h-full rounded-2xl object-cover"
+                      alt={`product detail ${index}`}
                     />
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
 
