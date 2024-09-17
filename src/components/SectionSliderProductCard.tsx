@@ -23,7 +23,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
   headingFontClassName,
   headingClassName,
   heading,
-  subHeading = "REY backpacks & bags",
+  subHeading = "Just for You",
   data = PRODUCTS.filter((_, i) => i < 8 && i > 2),
 }) => {
   const sliderRef = useRef(null);
@@ -75,8 +75,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
         <Heading
           className={headingClassName}
           fontClass={headingFontClassName}
-          rightDescText={subHeading}
-          hasNextPrev>
+          rightDescText={subHeading}>
           {heading || `New Arrivals`}
         </Heading>
         <div className="glide__track" data-glide-el="track">
