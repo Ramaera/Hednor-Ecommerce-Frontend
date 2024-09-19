@@ -32,7 +32,7 @@ const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
 
 const ProductDetailPage = () => {
   const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
-  //
+
   const [variantActive, setVariantActive] = useState(0);
   const [sizeSelected, setSizeSelected] = useState(sizes ? sizes[0] : "");
   const [qualitySelected, setQualitySelected] = useState(1);
@@ -42,7 +42,7 @@ const ProductDetailPage = () => {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
 
-  const scrollLeft = () => {
+  const scrollUp = () => {
     if (containerRef.current && imageRef.current) {
       containerRef.current.scrollBy({
         left: -imageRef.current.clientWidth,
@@ -51,7 +51,7 @@ const ProductDetailPage = () => {
     }
   };
 
-  const scrollRight = () => {
+  const scrollDown = () => {
     if (containerRef.current && imageRef.current) {
       containerRef.current.scrollBy({
         left: imageRef.current.clientWidth,
@@ -59,7 +59,7 @@ const ProductDetailPage = () => {
       });
     }
   };
-  //
+
   const notifyAddTocart = () => {
     toast.custom(
       (t) => (
@@ -377,59 +377,25 @@ const ProductDetailPage = () => {
       <main className="container mt-5 lg:mt-11">
         <div className="lg:flex">
           {/* CONTENT */}
-          <div className="w-full lg:w-[55%] ">
+          <div className="w-full lg:w-[55%] flex flex-row">
             {/* HEADING */}
-            <div className="relative">
-              <div className="aspect-w-16 aspect-h-16 relative">
-                <Image
-                  fill
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                  src={LIST_IMAGES_DEMO[0]}
-                  className="w-full rounded-2xl object-cover"
-                  alt="product detail 1"
-                />
-              </div>
-              {renderStatus()}
-              {/* META FAVORITES */}
-              <LikeButton className="absolute right-3 top-3 " />
-            </div>
-            {/* <div className="flex overflow-x-auto gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
-              {[
-                LIST_IMAGES_DEMO[1],
-                LIST_IMAGES_DEMO[2],
-                LIST_IMAGES_DEMO[1],
-                LIST_IMAGES_DEMO[2],
-                LIST_IMAGES_DEMO[1],
-                LIST_IMAGES_DEMO[2],
-                LIST_IMAGES_DEMO[1],
-                LIST_IMAGES_DEMO[2],
-              ].map((item, index) => (
-                <div key={index} className="flex-shrink-0 w-40 h-40 relative">
-                  <Image
-                    sizes="(max-width: 48px) 100vw, 30vw"
-                    fill
-                    src={item}
-                    className="w-full h-full rounded-2xl object-cover"
-                    alt={`product detail ${index}`}
-                  />
-                </div>
-              ))}
-            </div> */}
-            <div className="relative">
+
+            <div className="relative w-1/5 h-[48%]">
               <button
-                onClick={scrollLeft}
-                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
-                &lt;
+                onClick={scrollUp}
+                className="absolute top-0 right-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
+                &uarr;
               </button>
               <button
-                onClick={scrollRight}
-                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
-                &gt;
+                onClick={scrollDown}
+                className="absolute bottom-0 right-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
+                &darr;
               </button>
               <div
                 ref={containerRef}
-                className="flex overflow-x-auto whitespace-nowrap gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8 hide-scrollbar">
+                className="flex-col h-[90%] overflow-y-scroll whitespace-nowrap mb-4 hide-scrollbar">
                 {[
+                  LIST_IMAGES_DEMO[0],
                   LIST_IMAGES_DEMO[1],
                   LIST_IMAGES_DEMO[2],
                   LIST_IMAGES_DEMO[1],
@@ -453,6 +419,21 @@ const ProductDetailPage = () => {
                   </div>
                 ))}
               </div>
+            </div>
+
+            <div className="relative w-4/5">
+              <div className="aspect-w-16 aspect-h-16 relative">
+                <Image
+                  fill
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                  src={LIST_IMAGES_DEMO[0]}
+                  className="w-full rounded-2xl object-cover"
+                  alt="product detail 1"
+                />
+              </div>
+              {renderStatus()}
+              {/* META FAVORITES */}
+              <LikeButton className="absolute right-3 top-3 " />
             </div>
           </div>
 

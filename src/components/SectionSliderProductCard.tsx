@@ -6,6 +6,8 @@ import Heading from "@/components/Heading/Heading";
 import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard from "./ProductCard";
 import { Product, PRODUCTS } from "@/data/data";
+import Prev from "@/shared/NextPrev/Prev";
+import Next from "@/shared/NextPrev/Next";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -78,14 +80,27 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
           rightDescText={subHeading}>
           {heading || `New Arrivals`}
         </Heading>
-        <div className="glide__track" data-glide-el="track">
-          <ul className="glide__slides">
-            {data.map((item, index) => (
-              <li key={index} className={`glide__slide ${itemClassName}`}>
-                <ProductCard data={item} />
-              </li>
-            ))}
-          </ul>
+        <div className="relative">
+          <Prev
+            className="absolute start-1 sm:-start-6 top-[40%] sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+            btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400 bg-white border shadow-md rounded-full"
+            svgSize="w-6 h-6"
+          />
+          <Next
+            className="absolute end-1 sm:-end-6 top-[40%] sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+            btnClassName="w-12 h-12 hover:border-slate-500 dark:hover:border-slate-400 bg-white border shadow-md rounded-full"
+            svgSize="w-6 h-6"
+          />
+
+          <div className="glide__track" data-glide-el="track">
+            <ul className="glide__slides">
+              {data.map((item, index) => (
+                <li key={index} className={`glide__slide ${itemClassName}`}>
+                  <ProductCard data={item} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
