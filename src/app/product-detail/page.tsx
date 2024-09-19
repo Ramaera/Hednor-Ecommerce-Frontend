@@ -9,16 +9,24 @@ import NcInputNumber from "@/components/NcInputNumber";
 import { PRODUCTS } from "@/data/data";
 import {
   NoSymbolIcon,
-  ClockIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
 import Prices from "@/components/Prices";
 import toast from "react-hot-toast";
 import SectionSliderProductCard from "@/components/SectionSliderProductCard";
-import detail1JPG from "@/images/products/detail1.jpg";
-import detail2JPG from "@/images/products/detail2.jpg";
-import detail3JPG from "@/images/products/detail3.jpg";
+import detail1JPG from "@/images/products/detail2-1.jpg";
+import detail2JPG from "@/images/products/detail2-2.jpg";
+import detail3JPG from "@/images/products/detail2-3.jpg";
+import detail4JPG from "@/images/products/detail2-4.jpg";
+import detail5JPG from "@/images/products/detail2-5.jpg";
+import detail6JPG from "@/images/products/detail3-1.webp";
+import detail7JPG from "@/images/products/detail3-2.webp";
+import detail8JPG from "@/images/products/detail3-3.webp";
+import detail9JPG from "@/images/products/detail3-4.webp";
+
 import Policy from "./Policy";
 import ReviewItem from "@/components/ReviewItem";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
@@ -28,7 +36,17 @@ import NotifyAddTocart from "@/components/NotifyAddTocart";
 import Image from "next/image";
 import AccordionInfo from "@/components/AccordionInfo";
 
-const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
+const LIST_IMAGES_DEMO = [
+  detail1JPG,
+  detail2JPG,
+  detail3JPG,
+  detail4JPG,
+  detail5JPG,
+  detail6JPG,
+  detail7JPG,
+  detail8JPG,
+  detail9JPG,
+];
 
 const ProductDetailPage = () => {
   const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
@@ -42,21 +60,17 @@ const ProductDetailPage = () => {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
 
+  const [mainImage, setMainImage] = useState(LIST_IMAGES_DEMO[0]);
+
   const scrollUp = () => {
-    if (containerRef.current && imageRef.current) {
-      containerRef.current.scrollBy({
-        left: -imageRef.current.clientWidth,
-        behavior: "smooth",
-      });
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ top: -100, behavior: "smooth" });
     }
   };
 
   const scrollDown = () => {
-    if (containerRef.current && imageRef.current) {
-      containerRef.current.scrollBy({
-        left: imageRef.current.clientWidth,
-        behavior: "smooth",
-      });
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ top: 100, behavior: "smooth" });
     }
   };
 
@@ -171,47 +185,6 @@ const ProductDetailPage = () => {
         </div>
       </div>
     );
-  };
-
-  const renderStatus = () => {
-    if (!status) {
-      return null;
-    }
-    const CLASSES =
-      "absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 text-slate-900 dark:text-slate-300";
-    if (status === "New in") {
-      return (
-        <div className={CLASSES}>
-          <SparklesIcon className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    if (status === "50% Discount") {
-      return (
-        <div className={CLASSES}>
-          <IconDiscount className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    if (status === "Sold Out") {
-      return (
-        <div className={CLASSES}>
-          <NoSymbolIcon className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    if (status === "limited edition") {
-      return (
-        <div className={CLASSES}>
-          <ClockIcon className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    return null;
   };
 
   const renderSectionContent = () => {
@@ -377,43 +350,37 @@ const ProductDetailPage = () => {
       <main className="container mt-5 lg:mt-11">
         <div className="lg:flex">
           {/* CONTENT */}
-          <div className="w-full lg:w-[55%] flex flex-row">
+          <div className="w-full lg:w-[55%] flex items-stretch">
             {/* HEADING */}
-
-            <div className="relative w-1/5 h-[48%]">
+            {/* first div column */}
+            <div className="relative w-32 hidden lg:flex h-[34rem]">
               <button
                 onClick={scrollUp}
-                className="absolute top-0 right-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
-                &uarr;
+                className="absolute top-0 right-1/2 transform translate-x-1/2 bg-blue-500 text-white p-1 rounded-full z-20">
+                <ChevronUpIcon className="size-6" />
               </button>
+
               <button
                 onClick={scrollDown}
-                className="absolute bottom-0 right-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full z-20">
-                &darr;
+                className="absolute bottom-0 right-1/2 transform translate-x-1/2 bg-blue-500 text-white p-1 rounded-full z-20">
+                <ChevronDownIcon className="size-6" />
               </button>
+
               <div
                 ref={containerRef}
-                className="flex-col h-[90%] overflow-y-scroll whitespace-nowrap mb-4 hide-scrollbar">
-                {[
-                  LIST_IMAGES_DEMO[0],
-                  LIST_IMAGES_DEMO[1],
-                  LIST_IMAGES_DEMO[2],
-                  LIST_IMAGES_DEMO[1],
-                  LIST_IMAGES_DEMO[2],
-                  LIST_IMAGES_DEMO[1],
-                  LIST_IMAGES_DEMO[2],
-                  LIST_IMAGES_DEMO[1],
-                  LIST_IMAGES_DEMO[2],
-                ].map((item, index) => (
+                className="flex flex-col overflow-y-scroll overflow-x-hidden whitespace-nowrap mb-4 hide-scrollbar h-full">
+                {LIST_IMAGES_DEMO.map((item, index) => (
                   <div
                     key={index}
-                    ref={index === 0 ? imageRef : null}
-                    className="flex-shrink-0 w-24 h-24 relative">
+                    onClick={() => setMainImage(item)}
+                    className={`flex-shrink-0 w-24 h-24 relative mb-2 cursor-pointer ${
+                      mainImage === item ? "border border-blue-500" : ""
+                    } rounded-xl`}>
                     <Image
                       sizes="(max-width: 48px) 100vw, 30vw"
                       fill
                       src={item}
-                      className="w-full h-full rounded-2xl object-cover"
+                      className="w-full h-full rounded-xl object-cover overflow-hidden"
                       alt={`product detail ${index}`}
                     />
                   </div>
@@ -421,17 +388,24 @@ const ProductDetailPage = () => {
               </div>
             </div>
 
-            <div className="relative w-4/5">
+            {/* main image div */}
+            <div className="relative w-full">
               <div className="aspect-w-16 aspect-h-16 relative">
                 <Image
                   fill
                   sizes="(max-width: 640px) 100vw, 33vw"
-                  src={LIST_IMAGES_DEMO[0]}
+                  src={mainImage}
                   className="w-full rounded-2xl object-cover"
-                  alt="product detail 1"
+                  alt="product detail"
                 />
               </div>
-              {renderStatus()}
+              {/* Render Status */}
+              {status && (
+                <div className="absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300">
+                  <SparklesIcon className="w-3.5 h-3.5" />
+                  <span className="ml-1 leading-none">{status}</span>
+                </div>
+              )}
               {/* META FAVORITES */}
               <LikeButton className="absolute right-3 top-3 " />
             </div>
