@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import LikeButton from "@/components/LikeButton";
 import { StarIcon } from "@heroicons/react/24/solid";
@@ -35,6 +35,9 @@ import ModalViewAllReviews from "./ModalViewAllReviews";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
 import Image from "next/image";
 import AccordionInfo from "@/components/AccordionInfo";
+import Glide from "@glidejs/glide";
+import "@glidejs/glide/dist/css/glide.core.min.css";
+import "@glidejs/glide/dist/css/glide.theme.min.css";
 
 const LIST_IMAGES_DEMO = [
   detail1JPG,
@@ -344,6 +347,22 @@ const ProductDetailPage = () => {
     );
   };
 
+  const glideRef = useRef(null);
+
+  useEffect(() => {
+    if (glideRef.current) {
+      const glide = new Glide(glideRef.current, {
+        type: "carousel",
+        perView: 1,
+        gap: 20,
+        // autoplay: 3000,
+        dots: true,
+      });
+
+      glide.mount();
+    }
+  }, []);
+
   return (
     <div className={`nc-ProductDetailPage `}>
       {/* MAIn */}
@@ -389,7 +408,7 @@ const ProductDetailPage = () => {
             </div>
 
             {/* main image div */}
-            <div className="relative w-full">
+            <div className="relative hidden sm:block w-full">
               <div className="aspect-w-16 aspect-h-16 relative">
                 <Image
                   fill
@@ -408,6 +427,52 @@ const ProductDetailPage = () => {
               )}
               {/* META FAVORITES */}
               <LikeButton className="absolute right-3 top-3 " />
+            </div>
+
+            {/* Mobile View */}
+            <div className="relative w-full sm:hidden">
+              <div className="glide" ref={glideRef}>
+                {/* Slider Container */}
+                <div className="glide__track" data-glide-el="track">
+                  <ul className="glide__slides">
+                    {LIST_IMAGES_DEMO.map((image, index) => (
+                      <li key={index} className="glide__slide">
+                        <div className="aspect-w-16 aspect-h-16 relative">
+                          <Image
+                            fill
+                            sizes="(max-width: 640px) 100vw, 33vw"
+                            src={image.src}
+                            className="w-full rounded-2xl object-cover"
+                            alt={`product image ${index + 1}`}
+                          />
+                        </div>
+
+                        {/* Render Status */}
+                        {status && (
+                          <div className="absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300">
+                            <SparklesIcon className="w-3.5 h-3.5" />
+                            <span className="ml-1 leading-none">{status}</span>
+                          </div>
+                        )}
+
+                        {/* META FAVORITES */}
+                        <LikeButton className="absolute right-3 top-3 " />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {/* Dots for navigation */}
+                <div
+                  className="glide__bullets absolute left-0 right-0 flex justify-center"
+                  data-glide-el="controls[nav]">
+                  {LIST_IMAGES_DEMO.map((_, index) => (
+                    <button
+                      key={index}
+                      className="glide__bullet w-2 h-2 bg-gray-800 rounded-full mx-1"
+                      data-glide-dir={`=${index}`}></button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
