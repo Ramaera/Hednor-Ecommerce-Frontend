@@ -49,6 +49,7 @@ export default function Modal({
 
   useKeypress("ArrowLeft", () => {
     if (index > 0) {
+      console.log("data");
       changePhotoId(index - 1);
     }
   });
