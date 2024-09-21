@@ -38,6 +38,8 @@ import AccordionInfo from "@/components/AccordionInfo";
 import Glide from "@glidejs/glide";
 import "@glidejs/glide/dist/css/glide.core.min.css";
 import "@glidejs/glide/dist/css/glide.theme.min.css";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
 const LIST_IMAGES_DEMO = [
   detail1JPG,
@@ -409,15 +411,25 @@ const ProductDetailPage = () => {
 
             {/* main image div */}
             <div className="relative hidden sm:block w-full">
-              <div className="aspect-w-16 aspect-h-16 relative">
-                <Image
-                  fill
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                  src={mainImage}
-                  className="w-full rounded-2xl object-cover"
-                  alt="product detail"
-                />
-              </div>
+              <PhotoProvider>
+                {/* Main Image  */}
+                <PhotoView src={mainImage.src}>
+                  <div className="aspect-w-16 aspect-h-16 relative cursor-pointer">
+                    <Image
+                      fill
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                      src={mainImage}
+                      className="w-full rounded-2xl object-cover"
+                      alt="product detail"
+                    />
+                  </div>
+                </PhotoView>
+
+                {/* Provide All Images for the Gallery View */}
+                {LIST_IMAGES_DEMO.map((image, index) => (
+                  <PhotoView key={index} src={image.src} />
+                ))}
+              </PhotoProvider>
               {/* Render Status */}
               {status && (
                 <div className="absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300">
@@ -434,32 +446,40 @@ const ProductDetailPage = () => {
               <div className="glide" ref={glideRef}>
                 {/* Slider Container */}
                 <div className="glide__track" data-glide-el="track">
-                  <ul className="glide__slides">
-                    {LIST_IMAGES_DEMO.map((image, index) => (
-                      <li key={index} className="glide__slide">
-                        <div className="aspect-w-16 aspect-h-16 relative">
-                          <Image
-                            fill
-                            sizes="(max-width: 640px) 100vw, 33vw"
-                            src={image.src}
-                            className="w-full rounded-2xl object-cover"
-                            alt={`product image ${index + 1}`}
-                          />
-                        </div>
+                  <PhotoProvider>
+                    <ul className="glide__slides">
+                      {LIST_IMAGES_DEMO.map((image, index) => (
+                        <li key={index} className="glide__slide">
+                          <div className="aspect-w-16 aspect-h-16 relative">
+                            {/* PhotoView wraps the Image for gallery functionality */}
 
-                        {/* Render Status */}
-                        {status && (
-                          <div className="absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300">
-                            <SparklesIcon className="w-3.5 h-3.5" />
-                            <span className="ml-1 leading-none">{status}</span>
+                            <PhotoView src={image.src}>
+                              <Image
+                                fill
+                                sizes="(max-width: 640px) 100vw, 33vw"
+                                src={image.src}
+                                className="w-full rounded-2xl object-cover cursor-pointer"
+                                alt={`product image ${index + 1}`}
+                              />
+                            </PhotoView>
                           </div>
-                        )}
 
-                        {/* META FAVORITES */}
-                        <LikeButton className="absolute right-3 top-3 " />
-                      </li>
-                    ))}
-                  </ul>
+                          {/* Render Status */}
+                          {status && (
+                            <div className="absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300">
+                              <SparklesIcon className="w-3.5 h-3.5" />
+                              <span className="ml-1 leading-none">
+                                {status}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* META FAVORITES */}
+                          <LikeButton className="absolute right-3 top-3" />
+                        </li>
+                      ))}
+                    </ul>
+                  </PhotoProvider>
                 </div>
                 {/* Dots for navigation */}
                 <div
