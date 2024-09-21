@@ -72,14 +72,12 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
           className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50"
           fontClass="text-3xl md:text-4xl 2xl:text-5xl font-semibold"
           isCenter
-          desc=""
-        >
-          Start exploring.
+          desc="">
+          Dive into Trending Trends
         </Heading>
         <Nav
           className="p-1 bg-white dark:bg-neutral-800 rounded-full shadow-lg overflow-x-auto hiddenScrollbar"
-          containerClassName="mb-12 lg:mb-14 relative flex justify-center w-full text-sm md:text-base"
-        >
+          containerClassName="mb-12 lg:mb-14 relative flex justify-center w-full text-sm md:text-base">
           {[
             {
               name: "Women",
@@ -141,13 +139,11 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
             <NavItem2
               key={index}
               isActive={tabActive === item.name}
-              onClick={() => setTabActive(item.name)}
-            >
+              onClick={() => setTabActive(item.name)}>
               <div className="flex items-center justify-center space-x-1.5 sm:space-x-2.5 text-xs sm:text-sm ">
                 <span
                   className="inline-block"
-                  dangerouslySetInnerHTML={{ __html: item.icon }}
-                ></span>
+                  dangerouslySetInnerHTML={{ __html: item.icon }}></span>
                 <span>{item.name}</span>
               </div>
             </NavItem2>

@@ -56,32 +56,29 @@ export default function Modal({
 
   return (
     <>
-      <Suspense>
-        <Dialog
-          static
-          open={true}
-          onClose={handleClose}
-          initialFocus={overlayRef}
-          className="fixed inset-0 z-50 flex items-center justify-center "
-        >
-          <Dialog.Overlay
-            ref={overlayRef}
-            as={motion.div}
-            key="backdrop"
-            className="fixed inset-0 z-30 bg-black"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          />
-          <SharedModal
-            index={curIndex}
-            direction={direction}
-            images={images}
-            changePhotoId={changePhotoId}
-            closeModal={handleClose}
-            navigation={true}
-          />
-        </Dialog>
-      </Suspense>
+      <Dialog
+        static
+        open={true}
+        onClose={handleClose}
+        initialFocus={overlayRef}
+        className="fixed inset-0 z-50 flex items-center justify-center ">
+        <Dialog.Overlay
+          ref={overlayRef}
+          as={motion.div}
+          key="backdrop"
+          className="fixed inset-0 z-30 bg-black"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        />
+        <SharedModal
+          index={curIndex}
+          direction={direction}
+          images={images}
+          changePhotoId={changePhotoId}
+          closeModal={handleClose}
+          navigation={true}
+        />
+      </Dialog>
     </>
   );
 }

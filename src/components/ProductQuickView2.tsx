@@ -72,8 +72,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
                 variantActive === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
-              }`}
-            >
+              }`}>
               <div
                 className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
                 style={{
@@ -86,8 +85,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
                       ? variant.thumbnail
                       : ""
                   })`,
-                }}
-              ></div>
+                }}></div>
             </div>
           ))}
         </div>
@@ -112,8 +110,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
             target="_blank"
             rel="noopener noreferrer"
             href="##"
-            className="text-primary-6000 hover:text-primary-500"
-          >
+            className="text-primary-6000 hover:text-primary-500">
             See sizing chart
           </a>
         </div>
@@ -139,8 +136,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
                     return;
                   }
                   setSizeSelected(size);
-                }}
-              >
+                }}>
                 {size}
               </div>
             );
@@ -212,8 +208,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
             <div className="flex items-center">
               <a
                 href="#reviews"
-                className="flex items-center text-sm font-medium"
-              >
+                className="flex items-center text-sm font-medium">
                 <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
                 <div className="ml-1.5 flex">
                   <span>4.9</span>
@@ -246,8 +241,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
           </div>
           <ButtonPrimary
             className="flex-1 flex-shrink-0"
-            onClick={notifyAddTocart}
-          >
+            onClick={notifyAddTocart}>
             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
             <span className="ml-3">Add to cart</span>
           </ButtonPrimary>
@@ -260,8 +254,7 @@ const ProductQuickView2: FC<ProductQuickView2Props> = ({ className = "" }) => {
         <div className="text-center">
           <Link
             className="text-primary-6000 hover:text-primary-500 font-medium"
-            href="/product-detail"
-          >
+            href="/product-detail">
             View full details
           </Link>
         </div>

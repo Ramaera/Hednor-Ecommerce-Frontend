@@ -6,6 +6,8 @@ import CardCategory3 from "./CardCategories/CardCategory3";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import { CATS_DISCOVER } from "./CardCategories/data";
+import Prev from "@/shared/NextPrev/Prev";
+import Next from "@/shared/NextPrev/Next";
 
 const DiscoverMoreSlider = () => {
   const sliderRef = useRef(null);
@@ -52,31 +54,39 @@ const DiscoverMoreSlider = () => {
   }, [sliderRef]);
 
   return (
-    <div
-      ref={sliderRef}
-      className={`nc-DiscoverMoreSlider nc-p-l-container ${
-        isShow ? "" : "invisible"
-      }`}>
+    <div ref={sliderRef} className={`relative  ${isShow ? "" : "invisible"}`}>
       <Heading
-        className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 nc-p-r-container "
+        className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 "
         desc=""
-        rightDescText="Good things are waiting for youss"
-        hasNextPrev>
+        rightDescText="Good things are waiting for you">
         Discover more
       </Heading>
-      <div className="" data-glide-el="track">
-        <ul className="glide__slides">
-          {CATS_DISCOVER.map((item, index) => (
-            <li key={index} className={`glide__slide`}>
-              <CardCategory3
-                name={item.name}
-                desc={item.desc}
-                featuredImage={item.featuredImage}
-                color={item.color}
-              />
-            </li>
-          ))}
-        </ul>
+      <div className="relative">
+        <Prev
+          className="absolute start-1 sm:-start-6 top-[40%] sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+          btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400 bg-white border shadow-md rounded-full"
+          svgSize="w-6 h-6"
+        />
+        <Next
+          className="absolute end-1 sm:-end-6 top-[40%] sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
+          btnClassName="w-12 h-12 hover:border-slate-500 dark:hover:border-slate-400 bg-white border shadow-md rounded-full"
+          svgSize="w-6 h-6"
+        />
+
+        <div className="glide__track" data-glide-el="track">
+          <ul className="glide__slides">
+            {CATS_DISCOVER.map((item, index) => (
+              <li key={index} className={`glide__slide`}>
+                <CardCategory3
+                  name={item.name}
+                  desc={item.desc}
+                  featuredImage={item.featuredImage}
+                  color={item.color}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

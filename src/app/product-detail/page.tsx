@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import LikeButton from "@/components/LikeButton";
 import { StarIcon } from "@heroicons/react/24/solid";
@@ -9,16 +9,24 @@ import NcInputNumber from "@/components/NcInputNumber";
 import { PRODUCTS } from "@/data/data";
 import {
   NoSymbolIcon,
-  ClockIcon,
+  ChevronUpIcon,
+  ChevronDownIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
 import IconDiscount from "@/components/IconDiscount";
 import Prices from "@/components/Prices";
 import toast from "react-hot-toast";
 import SectionSliderProductCard from "@/components/SectionSliderProductCard";
-import detail1JPG from "@/images/products/detail1.jpg";
-import detail2JPG from "@/images/products/detail2.jpg";
-import detail3JPG from "@/images/products/detail3.jpg";
+import detail1JPG from "@/images/products/detail2-1.jpg";
+import detail2JPG from "@/images/products/detail2-2.jpg";
+import detail3JPG from "@/images/products/detail2-3.jpg";
+import detail4JPG from "@/images/products/detail2-4.jpg";
+import detail5JPG from "@/images/products/detail2-5.jpg";
+import detail6JPG from "@/images/products/detail3-1.webp";
+import detail7JPG from "@/images/products/detail3-2.webp";
+import detail8JPG from "@/images/products/detail3-3.webp";
+import detail9JPG from "@/images/products/detail3-4.webp";
+
 import Policy from "./Policy";
 import ReviewItem from "@/components/ReviewItem";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
@@ -27,19 +35,50 @@ import ModalViewAllReviews from "./ModalViewAllReviews";
 import NotifyAddTocart from "@/components/NotifyAddTocart";
 import Image from "next/image";
 import AccordionInfo from "@/components/AccordionInfo";
+import Glide from "@glidejs/glide";
+import "@glidejs/glide/dist/css/glide.core.min.css";
+import "@glidejs/glide/dist/css/glide.theme.min.css";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
-const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
+const LIST_IMAGES_DEMO = [
+  detail1JPG,
+  detail2JPG,
+  detail3JPG,
+  detail4JPG,
+  detail5JPG,
+  detail6JPG,
+  detail7JPG,
+  detail8JPG,
+  detail9JPG,
+];
 
 const ProductDetailPage = () => {
   const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
-  //
+
   const [variantActive, setVariantActive] = useState(0);
   const [sizeSelected, setSizeSelected] = useState(sizes ? sizes[0] : "");
   const [qualitySelected, setQualitySelected] = useState(1);
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
     useState(false);
 
-  //
+  const containerRef = useRef(null);
+  const imageRef = useRef(null);
+
+  const [mainImage, setMainImage] = useState(LIST_IMAGES_DEMO[0]);
+
+  const scrollUp = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ top: -100, behavior: "smooth" });
+    }
+  };
+
+  const scrollDown = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ top: 100, behavior: "smooth" });
+    }
+  };
+
   const notifyAddTocart = () => {
     toast.custom(
       (t) => (
@@ -79,8 +118,7 @@ const ProductDetailPage = () => {
                 variantActive === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
-              }`}
-            >
+              }`}>
               <div
                 className="absolute inset-0.5 rounded-full overflow-hidden z-0 object-cover bg-cover"
                 style={{
@@ -93,8 +131,7 @@ const ProductDetailPage = () => {
                       ? variant.thumbnail
                       : ""
                   })`,
-                }}
-              ></div>
+                }}></div>
             </div>
           ))}
         </div>
@@ -119,8 +156,7 @@ const ProductDetailPage = () => {
             target="_blank"
             rel="noopener noreferrer"
             href="##"
-            className="text-primary-6000 hover:text-primary-500"
-          >
+            className="text-primary-6000 hover:text-primary-500">
             See sizing chart
           </a>
         </div>
@@ -146,8 +182,7 @@ const ProductDetailPage = () => {
                     return;
                   }
                   setSizeSelected(size);
-                }}
-              >
+                }}>
                 {size}
               </div>
             );
@@ -155,47 +190,6 @@ const ProductDetailPage = () => {
         </div>
       </div>
     );
-  };
-
-  const renderStatus = () => {
-    if (!status) {
-      return null;
-    }
-    const CLASSES =
-      "absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 text-slate-900 dark:text-slate-300";
-    if (status === "New in") {
-      return (
-        <div className={CLASSES}>
-          <SparklesIcon className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    if (status === "50% Discount") {
-      return (
-        <div className={CLASSES}>
-          <IconDiscount className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    if (status === "Sold Out") {
-      return (
-        <div className={CLASSES}>
-          <NoSymbolIcon className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    if (status === "limited edition") {
-      return (
-        <div className={CLASSES}>
-          <ClockIcon className="w-3.5 h-3.5" />
-          <span className="ml-1 leading-none">{status}</span>
-        </div>
-      );
-    }
-    return null;
   };
 
   const renderSectionContent = () => {
@@ -219,8 +213,7 @@ const ProductDetailPage = () => {
             <div className="flex items-center">
               <a
                 href="#reviews"
-                className="flex items-center text-sm font-medium"
-              >
+                className="flex items-center text-sm font-medium">
                 <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
                 <div className="ml-1.5 flex">
                   <span>4.9</span>
@@ -253,8 +246,7 @@ const ProductDetailPage = () => {
           </div>
           <ButtonPrimary
             className="flex-1 flex-shrink-0"
-            onClick={notifyAddTocart}
-          >
+            onClick={notifyAddTocart}>
             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
             <span className="ml-3">Add to cart</span>
           </ButtonPrimary>
@@ -349,8 +341,7 @@ const ProductDetailPage = () => {
 
           <ButtonSecondary
             onClick={() => setIsOpenModalViewAllReviews(true)}
-            className="mt-10 border border-slate-300 dark:border-slate-700 "
-          >
+            className="mt-10 border border-slate-300 dark:border-slate-700 ">
             Show me all 142 reviews
           </ButtonSecondary>
         </div>
@@ -358,45 +349,150 @@ const ProductDetailPage = () => {
     );
   };
 
+  const glideRef = useRef(null);
+
+  useEffect(() => {
+    if (glideRef.current) {
+      const glide = new Glide(glideRef.current, {
+        type: "carousel",
+        perView: 1,
+        gap: 20,
+        // autoplay: 3000,
+        dots: true,
+      });
+
+      glide.mount();
+    }
+  }, []);
+
   return (
     <div className={`nc-ProductDetailPage `}>
       {/* MAIn */}
       <main className="container mt-5 lg:mt-11">
         <div className="lg:flex">
           {/* CONTENT */}
-          <div className="w-full lg:w-[55%] ">
+          <div className="w-full lg:w-[55%] flex items-stretch">
             {/* HEADING */}
-            <div className="relative">
-              <div className="aspect-w-16 aspect-h-16 relative">
-                <Image
-                  fill
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                  src={LIST_IMAGES_DEMO[0]}
-                  className="w-full rounded-2xl object-cover"
-                  alt="product detail 1"
-                />
+            {/* first div column */}
+            <div className="relative w-32 hidden lg:flex h-[34rem]">
+              <button
+                onClick={scrollUp}
+                className="absolute top-0 right-1/2 transform translate-x-1/2 bg-blue-500 text-white p-1 rounded-full z-20">
+                <ChevronUpIcon className="size-6" />
+              </button>
+
+              <button
+                onClick={scrollDown}
+                className="absolute bottom-0 right-1/2 transform translate-x-1/2 bg-blue-500 text-white p-1 rounded-full z-20">
+                <ChevronDownIcon className="size-6" />
+              </button>
+
+              <div
+                ref={containerRef}
+                className="flex flex-col overflow-y-scroll overflow-x-hidden whitespace-nowrap mb-4 hide-scrollbar h-full">
+                {LIST_IMAGES_DEMO.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => setMainImage(item)}
+                    className={`flex-shrink-0 w-24 h-24 relative mb-2 cursor-pointer ${
+                      mainImage === item ? "border border-blue-500" : ""
+                    } rounded-xl`}>
+                    <Image
+                      sizes="(max-width: 48px) 100vw, 30vw"
+                      fill
+                      src={item}
+                      className="w-full h-full rounded-xl object-cover overflow-hidden"
+                      alt={`product detail ${index}`}
+                    />
+                  </div>
+                ))}
               </div>
-              {renderStatus()}
+            </div>
+
+            {/* main image div */}
+            <div className="relative hidden sm:block w-full">
+              <PhotoProvider>
+                {/* Main Image  */}
+                <PhotoView src={mainImage.src}>
+                  <div className="aspect-w-16 aspect-h-16 relative cursor-pointer">
+                    <Image
+                      fill
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                      src={mainImage}
+                      className="w-full rounded-2xl object-cover"
+                      alt="product detail"
+                    />
+                  </div>
+                </PhotoView>
+
+                {/* Provide All Images for the Gallery View */}
+                {LIST_IMAGES_DEMO.map((image, index) => (
+                  <PhotoView key={index} src={image.src} />
+                ))}
+              </PhotoProvider>
+              {/* Render Status */}
+              {status && (
+                <div className="absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300">
+                  <SparklesIcon className="w-3.5 h-3.5" />
+                  <span className="ml-1 leading-none">{status}</span>
+                </div>
+              )}
               {/* META FAVORITES */}
               <LikeButton className="absolute right-3 top-3 " />
             </div>
-            <div className="grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-8 xl:mt-8">
-              {[LIST_IMAGES_DEMO[1], LIST_IMAGES_DEMO[2]].map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="aspect-w-11 xl:aspect-w-10 2xl:aspect-w-11 aspect-h-16 relative"
-                  >
-                    <Image
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                      fill
-                      src={item}
-                      className="w-full rounded-2xl object-cover"
-                      alt="product detail 1"
-                    />
-                  </div>
-                );
-              })}
+
+            {/* Mobile View */}
+            <div className="relative w-full sm:hidden">
+              <div className="glide" ref={glideRef}>
+                {/* Slider Container */}
+                <div className="glide__track" data-glide-el="track">
+                  <PhotoProvider>
+                    <ul className="glide__slides">
+                      {LIST_IMAGES_DEMO.map((image, index) => (
+                        <li key={index} className="glide__slide">
+                          <div className="aspect-w-16 aspect-h-16 relative">
+                            {/* PhotoView wraps the Image for gallery functionality */}
+
+                            <PhotoView src={image.src}>
+                              <Image
+                                fill
+                                sizes="(max-width: 640px) 100vw, 33vw"
+                                src={image.src}
+                                className="w-full rounded-2xl object-cover cursor-pointer"
+                                alt={`product image ${index + 1}`}
+                              />
+                            </PhotoView>
+                          </div>
+
+                          {/* Render Status */}
+                          {status && (
+                            <div className="absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300">
+                              <SparklesIcon className="w-3.5 h-3.5" />
+                              <span className="ml-1 leading-none">
+                                {status}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* META FAVORITES */}
+                          <LikeButton className="absolute right-3 top-3" />
+                        </li>
+                      ))}
+                    </ul>
+                  </PhotoProvider>
+                </div>
+                {/* Dots for navigation */}
+                <div
+                  className="glide__bullets absolute left-0 right-0 flex justify-center"
+                  data-glide-el="controls[nav]">
+                  {LIST_IMAGES_DEMO.map((_, index) => (
+                    <button
+                      key={index}
+                      className="glide__bullet w-2 h-2 bg-gray-800 rounded-full mx-1"
+                      data-glide-dir={`=${index}`}></button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
